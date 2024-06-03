@@ -1,0 +1,72 @@
+## EDA Code
+
+SELECT *
+FROM gun_deaths;
+
+-- Death Count by Year
+
+SELECT year, count(*) as total_deaths
+FROM gun_deaths
+GROUP BY year;
+
+-- Death count by intent 
+SELECT intent, count(*) as death_count
+FROM gun_deaths 
+GROUP BY intent
+ORDER BY death_count DESC;
+
+SELECT year, intent, count(*) as death_count
+FROM gun_deaths 
+GROUP BY year, intent
+ORDER BY intent, year;
+
+-- Gun death by race 
+Select race, count(*) as death_count
+FROM gun_deaths
+GROUP BY race
+ORDER BY death_count DESC;
+
+-- Gun death by sex
+SELECT sex, count(*) as death_count
+FROM gun_deaths 
+GROUP BY sex
+ORDER BY death_count DESC; 
+
+SELECT intent, count(*) as death_count
+FROM gun_deaths 
+WHERE sex = 'F'
+GROUP BY intent;
+
+SELECT intent, count(*) as death_count
+FROM gun_deaths 
+WHERE sex = 'M'
+GROUP BY intent;
+
+SELECT sex, count(*) as death_count
+FROM gun_deaths 
+WHERE intent = 'Suicide'
+GROUP BY sex;
+
+-- Most common place of death 
+SELECT place, count(*) as death_count
+FROM gun_deaths 
+WHERE intent = 'Suicide'
+GROUP BY place
+ORDER BY death_count DESC
+LIMIT 5;
+
+-- Number of suicides by age group
+SELECT 
+	CASE 
+    WHEN age < 13 THEN 'child'
+	WHEN age < 20 THEN 'teenager'
+    WHEN age between 20 and 39 THEN 'young_adult'
+    WHEN age between 40 and 60  THEN 'middle_age'
+    ELSE 'senior_citizen' 
+    END as age_group,
+    count(*) as death_count
+FROM gun_deaths
+WHERE intent = 'Suicide' 
+GROUP BY age_group
+ORDER BY death_count DESC;
+
