@@ -1,0 +1,22 @@
+## Data Cleaning Process
+
+When I began exploring the data I noted that there were a few blank rows in the intent, place, and education columns. I updated the blank rows in the intent column to 'Undetermined'.
+The blank rows in place were changed to 'Other unspecified'. However, I made no changed to the blank rows in th education column. Below is the code used to make those changes.
+
+-- Updating intent
+SELECT DISTINCT intent, count(*)
+FROM gun_deaths 
+GROUP BY intent;   
+
+UPDATE gun_deaths 
+SET intent = 'Undetermined'
+WHERE intent = '';
+
+-- Updating Place
+SELECT DISTINCT Place, count(*)
+FROM gun_deaths
+GROUP BY place;
+
+UPDATE gun_deaths
+SET place = 'Other unspecified'
+WHERE place = '';
