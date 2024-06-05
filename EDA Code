@@ -1,4 +1,4 @@
-## EDA Code
+Below is the code I used for my Exploratory Data Analysis. 
 
 SELECT *
 FROM gun_deaths;
